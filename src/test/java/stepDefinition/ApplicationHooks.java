@@ -1,4 +1,4 @@
-package parallel;
+package stepDefinition;
 
 import java.util.Properties;
 

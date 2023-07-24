@@ -1,4 +1,4 @@
-package parallel;
+package stepDefinition;
 
 import io.cucumber.java.en.And;
 import org.junit.Assert;
@@ -87,20 +87,11 @@ public class LoginPageSteps {
 	public void the_user_should_be_able_to_view(String sectionString) {
 
 		System.out.println("Expected accounts section list: " + sectionString);
-//		List<String> actualHomeSectionsList = new ArrayList<>();
 
 		List<String> actualAccountSectionsList = loginPage.getAppsSectionsList();
-//		for (String str : actualAccountSectionsList) {
-//			String stringWithoutNewlines = str.replaceAll("\n", ",");
-//			stringWithoutNewlines = stringWithoutNewlines.trim();
-//			actualHomeSectionsList.add(stringWithoutNewlines);
-//		}
 		System.out.println("Actual accounts section list: " + actualAccountSectionsList);
 
-//		Assert.assertTrue(expHomeSectionsList.contains(actualHomeSectionsList));
-
 		Assert.assertTrue(loginPage.stringFound(sectionString,actualAccountSectionsList));
-//			expHomeSectionsList.add(expectedHomeSectionsList);
 		}
 
 

@@ -1,4 +1,4 @@
-package parallel;
+package stepDefinition;
 
 import org.testng.annotations.DataProvider;
 
@@ -11,13 +11,13 @@ import io.cucumber.testng.CucumberOptions;
 				"timeline:test-output-thread/"
 				}, 
 		monochrome = true,
-		glue = { "parallel" },
+		glue = {"features"},
 		features = { "src/test/resources/parallel" }
 )
 
 public class ParallelRun extends AbstractTestNGCucumberTests {
 	@Override
-	@DataProvider(parallel = true)
+	@DataProvider(parallel = false)
 	public Object[][] scenarios() {
 		return super.scenarios();
 	}
