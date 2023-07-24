@@ -16,7 +16,7 @@ And user selects location "Inpatient Ward" session
 And user clicks on "Login" button
 Then user gets the title of the page
 And page title should be "Home"
-Then user gets home section "Find Patient Record"
+Then the user should be able to view "Find Patient Record"
 
   @T3
   Scenario: Register a patient
@@ -24,7 +24,7 @@ Then user gets home section "Find Patient Record"
     When user enters username "admin"
     And user enters password "Admin123"
     And user selects location "Impatient" session
-    And user clicks on “Login” button
+    And user clicks on "Login" button
     Then the user inspects the “Home” page
     And I click on the "register patient"
     And I enter details for “patient’s name”
