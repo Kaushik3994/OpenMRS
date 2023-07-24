@@ -23,7 +23,7 @@ Then user gets home section "Find Patient Record"
     Given user is on login page
     When user enters username "admin"
     And user enters password "Admin123"
-    And user selects location “Impatient” session
+    And user selects location "Impatient" session
     And user clicks on “Login” button
     Then the user inspects the “Home” page
     And I click on the "register patient"
