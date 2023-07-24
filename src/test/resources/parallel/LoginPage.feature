@@ -12,8 +12,8 @@ Scenario: Login with correct credentials
 Given user is on login page
 When user enters username "admin"
 And user enters password "Admin123"
-And user selects location session
-And user clicks on Login button
+And user selects location "Inpatient Ward" session
+And user clicks on "Login" button
 Then user gets the title of the page
 And page title should be "Home"
 Then user gets home section "Find Patient Record"

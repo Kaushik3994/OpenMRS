@@ -29,15 +29,31 @@ public class LoginPageSteps {
 		Thread.sleep(2000);
 	}
 
-	@When("user selects location session")
-	public void user_selects_location_session() {
-		loginPage.clickOnSession();
+	@When("user selects location {string} session")
+	public void user_selects_location_session(String session) {
+		switch (session) {
+
+			case "Inpatient Ward":
+				loginPage.clickOnSession();
+				break;
+
+			default:
+
+		}
 	}
 
 
-	@When("user clicks on Login button")
-	public void user_clicks_on_login_button() {
-		loginPage.clickOnLogin();
+	@When("user clicks on {string} button")
+	public void user_clicks_on_login_button(String buttonName) {
+
+		switch (buttonName) {
+			case "Login":
+				loginPage.clickOnLogin();
+				break;
+			default:
+//				DoNothing
+
+		}
 	}
 
 	@Given("user is on login page")
