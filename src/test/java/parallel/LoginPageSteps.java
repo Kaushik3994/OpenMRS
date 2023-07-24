@@ -67,8 +67,8 @@ public class LoginPageSteps {
 
 	}
 
-	@Then("user gets home section {string}")
-	public void user_gets_home_section(String sectionString) {
+	@Then("the user should be able to view {string}")
+	public void the_user_should_be_able_to_view(String sectionString) {
 
 		System.out.println("Expected accounts section list: " + sectionString);
 //		List<String> actualHomeSectionsList = new ArrayList<>();
