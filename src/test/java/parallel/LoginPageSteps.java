@@ -45,6 +45,7 @@ public class LoginPageSteps {
 	DriverFactory.getDriver()
 				.get("http://localhost:8081/openmrs-standalone/login.htm");
 
+
 	}
 
 
@@ -56,11 +57,13 @@ public class LoginPageSteps {
 		title = loginPage.getLoginPageTitle();
 		System.out.println("Page title is: " + title);
 
+
 	}
 	@Then("page title should be {string}")
 	public void page_title_should_be(String expectedTitleName) {
 		// Write code here that turns the phrase above into concrete actions
 		Assert.assertTrue(title.contains(expectedTitleName));
+
 
 	}
 
@@ -85,9 +88,7 @@ public class LoginPageSteps {
 		}
 
 
-	@And("user selects location “Impatient”session")
-	public void userSelectsLocationImpatientSession() {
-	}
+
 }
 
 

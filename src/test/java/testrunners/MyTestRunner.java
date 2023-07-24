@@ -7,9 +7,9 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = {"src/test/resources/parallel/LoginPage.feature"},
+		features = {"src/test/resources/parallel"},
 		glue = {"stepdefinitions", "AppHooks"},
-//		tags = "@T2",
+		tags = "@T1",
 		plugin = {"pretty",
 				"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
 				"timeline:test-output-thread/"
