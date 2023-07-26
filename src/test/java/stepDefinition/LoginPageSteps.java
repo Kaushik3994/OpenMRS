@@ -76,9 +76,10 @@ public class LoginPageSteps {
 
 	}
 	@Then("page title should be {string}")
-	public void page_title_should_be(String expectedTitleName) {
+	public void page_title_should_be(String expectedTitleName) throws InterruptedException {
 		// Write code here that turns the phrase above into concrete actions
 		Assert.assertTrue(title.contains(expectedTitleName));
+		Thread.sleep(2000);
 
 
 	}
@@ -95,7 +96,22 @@ public class LoginPageSteps {
 		}
 
 
+    @And("user clicks the app {string}")
+    public void userClicksTheApp(String appName) throws InterruptedException {
+		switch(appName){
+			case "Find Patient Record":
+			loginPage.clickOnApp(appName);
+			Thread.sleep(2000);
+		}
+    }
 
+	@Then("the page title should be {string}")
+	public void thePageTitleShouldBe(String pageName) throws InterruptedException {
+		title = loginPage.getLoginPageTitle();
+		System.out.println("Page title is: " + title);
+		Assert.assertTrue(title.contains(pageName));
+		Thread.sleep(2000);
+	}
 }
 
 

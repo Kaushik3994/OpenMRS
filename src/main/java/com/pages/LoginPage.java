@@ -17,7 +17,7 @@ public class LoginPage {
 	private By password = By.xpath("//input[@id='password']");
 	private By signInButton = By.id("loginButton");
 	private By sessionButtonInpatientWard =By.xpath("//li[@id='Inpatient Ward']");
-
+	private By sessionButtonFindPatientRecords =By.xpath("/html/body/div/div[3]/div[3]/div/a[1]");
 
 	// 2. Constructor of the page class:
 	public LoginPage(WebDriver driver) {
@@ -44,7 +44,13 @@ public class LoginPage {
 	public void clickOnSession() {
 		driver.findElement(sessionButtonInpatientWard).click();
 	}
-
+	public void clickOnApp(String appName) {
+		switch(appName) {
+			case "Find Patient Record":
+			driver.findElement(sessionButtonFindPatientRecords).click();
+			break;
+		}
+	}
 
 	private By accountSections = By.id("apps");
 
