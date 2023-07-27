@@ -27,7 +27,7 @@ Then the user should be able to view "Find Patient Record"
     And user clicks on "Login" button
     Then user gets the title of the page
     And page title should be "Home"
-    #Then the user should be able to view "Find Patient Record"
+    #Then the user should be able to view "Find Patient Records"
     And user clicks the app "Find Patient Record"
     Then the page title should be "OpenMRS Electronic Medical Record"
 
