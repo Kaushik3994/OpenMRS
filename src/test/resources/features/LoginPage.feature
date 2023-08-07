@@ -1,3 +1,4 @@
+@LoginPage
 Feature: Login page feature
 
 @T1
