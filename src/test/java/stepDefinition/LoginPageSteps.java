@@ -61,7 +61,7 @@ public class LoginPageSteps {
 	DriverFactory.getDriver()
 				.get("http://localhost:8081/openmrs-standalone/login.htm");
 
-
+		ExtentLogs.log("User is on Login Page");
 	}
 
 
@@ -73,6 +73,8 @@ public class LoginPageSteps {
 		title = loginPage.getLoginPageTitle();
 		System.out.println("Page title is: " + title);
 
+		ExtentLogs.log("Page title is: " + title);
+
 
 	}
 	@Then("page title should be {string}")
@@ -81,6 +83,7 @@ public class LoginPageSteps {
 		Assert.assertTrue(title.contains(expectedTitleName));
 		Thread.sleep(2000);
 
+		ExtentLogs.log("title contains" + expectedTitleName);
 
 	}
 
