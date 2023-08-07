@@ -1,44 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<extentreports>
-	<configuration>
-		<!-- report theme -->
-
-		<!-- standard, dark -->
-
-		<theme>dark</theme>
-		<!-- document encoding -->
-
-		<!-- defaults to UTF-8 -->
-
-		<encoding>UTF-8</encoding>
-		<!-- protocol for script and stylesheets -->
-
-		<!-- defaults to https -->
-
-		<protocol>http</protocol>
-		<!-- title of the document -->
-		<documentTitle>Extent</documentTitle>
-		<!-- report name - displayed at top-nav -->
-
-		<reportName>Grasshopper Report</reportName>
-		<!-- location of charts in the test view -->
-
-		<!-- top, bottom -->
-
-		<testViewChartLocation>bottom</testViewChartLocation>
-		<!-- custom javascript -->
-
-		<scripts>
-
-<![CDATA[
-$(document).ready(function() {
-});
-]]>
-		</scripts>
-		<!-- custom styles -->
-		<styles>
-<![CDATA[
-]]>
-		</styles>
-	</configuration>
-</extentreports>
+<extent>
+    <reporter name="html">
+        <configuration>
+            <!-- title of the document -->
+            <documentTitle>Automation Test Report</documentTitle>
+            <reportName>OpenMRS Automation Execution Report</reportName>
+            <offlineMode>true</offlineMode>
+            <thumbnailForBase64>true</thumbnailForBase64>
+            <theme>standard</theme>
+            <encoding>UTF-8</encoding>
+            <protocol>https</protocol>
+            <testViewChartLocation>top</testViewChartLocation>
+            <charts>
+                <chart>
+                    <width>800</width>
+                    <height>400</height>
+                </chart>
+            </charts>
+        </configuration>
+    </reporter>
+    <reporter name="pdf">
+        <configuration>
+            <pageSize>Letter_Landscape</pageSize>
+        </configuration>
+    </reporter>
+</extent>
