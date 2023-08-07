@@ -1,4 +1,4 @@
-package stepDefinition;
+package com.qa.util;
 
 import java.time.ZoneId;
 import java.time.ZoneOffset;

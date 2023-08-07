@@ -1,4 +1,4 @@
-package stepDefinition;
+package com.qa.util;
 
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;

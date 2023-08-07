@@ -1,4 +1,4 @@
-package stepDefinition;
+package com.qa.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
