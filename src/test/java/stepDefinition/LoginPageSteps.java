@@ -123,8 +123,6 @@ public class LoginPageSteps {
 
 	private Map<String, String> getLoginData(String usernameKey, String passwordKey) throws IOException {
 		List<Map<String, String>> loginCredentials;
-		String filePath;
-		filePath = "\"C:\\Users\\mbkaushikkumar\\Desktop\\CredentialsDataProviders.xlsx\"";
 		loginCredentials = ExcelDataReader.readExcelData("\"C:\\Users\\mbkaushikkumar\\IdeaProjects\\OpenMRS\\CredentialsDataProviders.xlsx\"", "Sheet1");
 
 		for (Map<String, String> loginData : loginCredentials) {

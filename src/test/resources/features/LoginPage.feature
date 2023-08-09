@@ -22,6 +22,7 @@ Then the user should be able to view "Find Patient Record"
     |Parameter | Value|
     |username  |password|
 
+
   @T3
   Scenario Outline: open Find Patient Record app
     Given user is on login page
