@@ -9,28 +9,34 @@ Then page title should be "Login"
 
 
 @T2
-Scenario: Login with correct credentials
+Scenario Outline: Login with correct credentials
 Given user is on login page
-When user enters username "admin"
-And user enters password "Admin123"
+When I enter "<Parameter>" and "<Value>"
+#And user enters password "Admin123"
 And user selects location "Inpatient Ward" session
 And user clicks on "Login" button
 Then user gets the title of the page
 And page title should be "Home"
 Then the user should be able to view "Find Patient Record"
+  Examples:
+    |Parameter | Value|
+    |username  |password|
 
   @T3
-  Scenario: open Find Patient Record app
+  Scenario Outline: open Find Patient Record app
     Given user is on login page
-    When user enters username "admin"
-    And user enters password "Admin123"
+    When I enter "<Parameter>" and "<Value>"
     And user selects location "Inpatient Ward" session
     And user clicks on "Login" button
     Then user gets the title of the page
     And page title should be "Home"
     #Then the user should be able to view "Find Patient Records"
     And user clicks the app "Find Patient Record"
-    Then the page title should be "OpenMRS Electronic Medical Record"
+    Then user gets the title of the page
+    Then page title should be "OpenMRS Electronic Medical Record"
+    Examples:
+      |Parameter | Value|
+      |username  |password|
 
 #  @T301
 #  Scenario: Register a patient
