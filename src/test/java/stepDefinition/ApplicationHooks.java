@@ -26,6 +26,8 @@ public class ApplicationHooks {
 	Properties prop;
 	private Scenario scenario; // Store the injected Scenario object
 
+	ExecutionHelper helper = new ExecutionHelper();
+
 	@Before(order = 0)
 	public void getProperty() {
 		configReader = new ConfigReader();
