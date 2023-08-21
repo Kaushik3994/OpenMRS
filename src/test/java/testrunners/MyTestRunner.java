@@ -12,14 +12,10 @@ import org.testng.annotations.DataProvider;
 		features = {"src/test/resources/features"},
 		glue = {"stepDefinition"},
 		tags = "@LoginPage",
-		dryRun = false, monochrome = true,
-	//	tags = "@T1",
-		plugin = {"pretty",
-				"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
-				"timeline:test-output-thread/"
-		}
-		
-		)
+		dryRun = false, monochrome = true
+		//	tags = "@T1",
+
+)
 public class MyTestRunner extends AbstractTestNGCucumberTests{
 	@Override
 

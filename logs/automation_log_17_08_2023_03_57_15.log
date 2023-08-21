@@ -1,0 +1,17 @@
+[INFO ] 2023-08-17 13:27:15 - T1 User is on Login Page
+[INFO ] 2023-08-17 13:27:15 - T1 Page title is: Login
+[INFO ] 2023-08-17 13:27:17 - T1 title containsLogin
+[INFO ] 2023-08-17 13:27:25 - T2 User is on Login Page
+[INFO ] 2023-08-17 13:27:25 - T2 User enters userNameadminand PasswordAdmin123
+[INFO ] 2023-08-17 13:27:26 - T2 User enters into session Inpatient Ward
+[INFO ] 2023-08-17 13:27:26 - T2 Page title is: Home
+[INFO ] 2023-08-17 13:27:28 - T2 title containsHome
+[INFO ] 2023-08-17 13:27:28 - T2 The page contains the tile Find Patient Record
+[INFO ] 2023-08-17 13:27:35 - T3 User is on Login Page
+[INFO ] 2023-08-17 13:27:35 - T3 User enters userNameadminand PasswordAdmin123
+[INFO ] 2023-08-17 13:27:35 - T3 User enters into session Inpatient Ward
+[INFO ] 2023-08-17 13:27:35 - T3 Page title is: Home
+[INFO ] 2023-08-17 13:27:37 - T3 title containsHome
+[INFO ] 2023-08-17 13:27:40 - T3 User clicks on tile Find Patient Record
+[INFO ] 2023-08-17 13:27:40 - T3 Page title is: OpenMRS Electronic Medical Record
+[INFO ] 2023-08-17 13:27:42 - T3 title containsOpenMRS Electronic Medical Record
