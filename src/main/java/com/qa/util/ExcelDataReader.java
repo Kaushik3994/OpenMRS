@@ -10,11 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public  class ExcelDataReader {
+public class ExcelDataReader {
 
 	public static List<Map<String, String>> readExcelData(String filePath, String sheetName) throws IOException {
 		List<Map<String, String>> testDataList = new ArrayList<>();
-		String fPath=filePath.replace("\"","");
+		String fPath = filePath.replace("\"", "");
 		FileInputStream fis = new FileInputStream(fPath);
 		Workbook workbook = new XSSFWorkbook(fis);
 		Sheet sheet = workbook.getSheet(sheetName);

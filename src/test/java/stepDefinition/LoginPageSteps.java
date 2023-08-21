@@ -1,29 +1,31 @@
 package stepDefinition;
 
-import com.qa.util.ExtentLogs;
+import com.qa.util.ScenarioFactory;
+import com.relevantcodes.extentreports.LogStatus;
+import helpers.ExecutionHelper;
+//import helpers.LocalDriverManager;
 import io.cucumber.java.en.And;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Assert;
 
 import com.pages.LoginPage;
-import com.qa.factory.DriverFactory;
+import com.qa.util.DriverFactory;
 import com.qa.util.ExcelDataReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
+
 public class LoginPageSteps {
 
 	private static String title;
+	private List<Map<String, String>> testData;
 	private LoginPage loginPage = new LoginPage(DriverFactory.getDriver());
 
 
@@ -39,12 +41,14 @@ public class LoginPageSteps {
 	}
 
 	@When("user selects location {string} session")
-	public void user_selects_location_session(String session) {
+	public void user_selects_location_session(String session) throws IOException {
 		switch (session) {
 
 			case "Inpatient Ward":
 				loginPage.clickOnSession();
-				ExtentLogs.log("User enters into session " + session);
+				ExecutionHelper.getLogger().log(LogStatus.PASS, "User enters into session " + session +ExecutionHelper.getLogger()
+						.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+
 				break;
 
 			default:
@@ -71,84 +75,106 @@ public class LoginPageSteps {
 		DriverFactory.getDriver()
 				.get("http://localhost:8081/openmrs-standalone/login.htm");
 
-		ExtentLogs.log("User is on Login Page");
+
+
 	}
 
 
 	@When("user gets the title of the page")
-	public void user_gets_the_title_of_the_page() {
+	public void user_gets_the_title_of_the_page() throws IOException {
 		// Write code here that turns the phrase above into concrete actions
 		title = loginPage.getLoginPageTitle();
 		System.out.println("Page title is: " + title);
 
-		ExtentLogs.log("Page title is: " + title);
+		//ExtentLogs.log("Page title is: " + title);
+		ExecutionHelper.getLogger().log(LogStatus.PASS, "Page title is: " + title +ExecutionHelper.getLogger()
+				.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+
 
 
 	}
 
 	@Then("page title should be {string}")
-	public void page_title_should_be(String expectedTitleName) throws InterruptedException {
+	public void page_title_should_be(String expectedTitleName) throws InterruptedException, IOException {
 		// Write code here that turns the phrase above into concrete actions
 		Assert.assertTrue(title.contains(expectedTitleName));
 		Thread.sleep(2000);
 		System.out.println("Expected Title is "+expectedTitleName +" Actual title is " +title );
-		ExtentLogs.log("title contains" + expectedTitleName);
+
+		ExecutionHelper.getLogger().log(LogStatus.PASS, "title contains" + expectedTitleName +ExecutionHelper.getLogger()
+				.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+
 
 	}
 
 	@Then("the user should be able to view {string}")
-	public void the_user_should_be_able_to_view(String sectionString) {
+	public void the_user_should_be_able_to_view(String sectionString) throws IOException {
 
-		System.out.println("Expected accounts section list: " + sectionString);
+	//	System.out.println("Expected accounts section list: " + sectionString);
 
 		List<String> actualAccountSectionsList = loginPage.getAppsSectionsList();
-		System.out.println("Actual accounts section list: " + actualAccountSectionsList);
+	//	System.out.println("Actual accounts section list: " + actualAccountSectionsList);
 
 		Assert.assertTrue(loginPage.stringFound(sectionString, actualAccountSectionsList));
-		ExtentLogs.log("The page contains the tile "+sectionString );
+
+		ExecutionHelper.getLogger().log(LogStatus.PASS, "The page contains the tile "+sectionString  +ExecutionHelper.getLogger()
+				.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+
 	}
 
 
 	@And("user clicks the app {string}")
-	public void userClicksTheApp(String appName) throws InterruptedException {
+	public void userClicksTheApp(String appName) throws InterruptedException, IOException {
 		switch (appName) {
 			case "Find Patient Record":
 				loginPage.clickOnApp(appName);
 				Thread.sleep(2000);
-				ExtentLogs.log("User clicks on tile "+appName );
+
+				ExecutionHelper.getLogger().log(LogStatus.PASS, "User clicks on tile "+appName +ExecutionHelper.getLogger()
+						.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+				break;
+			default:
+				break;
 		}
 	}
 
 
 
-	private Map<String, String> getLoginData(String usernameKey, String passwordKey) throws IOException {
-		List<Map<String, String>> loginCredentials;
-		loginCredentials = ExcelDataReader.readExcelData("\"C:\\Users\\mbkaushikkumar\\IdeaProjects\\OpenMRS\\CredentialsDataProviders.xlsx\"", "Sheet1");
+	public Map<String, String> getLoginData(String testCaseId,String usernameKey,String passwordKey) throws IOException {
+		String systemPath = System.getProperty("user.dir"); // Get the current working directory
+		String filePath = systemPath + "\\src\\test\\resources\\testdata.xlsx"; // Construct the complete file path
 
-		for (Map<String, String> loginData : loginCredentials) {
-			if (loginData.containsKey(usernameKey) && loginData.containsKey(passwordKey)) {
+		List<Map<String, String>> testData = ExcelDataReader.readExcelData(filePath, "Sheet1");
+		for (Map<String, String> data : testData) {
+			if (data.get("Test Case ID").equalsIgnoreCase(testCaseId)) {
+				Map<String, String> loginData = new HashMap<>();
+				loginData.put(usernameKey, data.get(usernameKey));
+				loginData.put(passwordKey, data.get(passwordKey));
 				return loginData;
 			}
 		}
-		throw new IllegalArgumentException("Login data not found for given keys: " + usernameKey + ", " + passwordKey);
+		throw new IllegalArgumentException("Test case ID not found in test data: " + testCaseId);
 	}
 
-	private List<Map<String, String>> testData;
 
 
 
-	@When("I enter {string} and {string}")
-	public void iEnterAnd(String usernameKey, String passwordKey)throws IOException  {
-//			System.out.println("Into the Function");
-			Map<String, String> loginData = getLoginData(usernameKey, passwordKey);
-			String username = loginData.get(usernameKey);
-			String password = loginData.get(passwordKey);
 
-			loginPage.enterUserName(username);
-			loginPage.enterPassword(password);
-			ExtentLogs.log("User enters userName" + username + "and Password" +password);
-		}
+	@When("^I enter \"(.*)\" and \"(.*)\"$")
+	public void iEnterUsernameAndPassword(String usernameKey, String passwordKey) throws IOException {
+		String testCaseId = ScenarioFactory.getCurrentScenarioTestCaseIDs();
+		Map<String, String> loginData = getLoginData(testCaseId, usernameKey, passwordKey);
+		String username = loginData.get(usernameKey);
+		String password = loginData.get(passwordKey);
 
+		// Rest of your step definition logic
+		loginPage.enterUserName(username);
+		loginPage.enterPassword(password);
+
+		ExecutionHelper.getLogger().log(LogStatus.PASS, "User enters userName" + username + "and Password" + password +ExecutionHelper.getLogger()
+				.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+
+	}
 
 }
 

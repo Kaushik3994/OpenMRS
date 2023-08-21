@@ -1,26 +1,8 @@
-<extent>
-    <reporter name="html">
-        <configuration>
-            <!-- title of the document -->
-            <documentTitle>Automation Test Report</documentTitle>
-            <reportName>OpenMRS Automation Execution Report</reportName>
-            <offlineMode>true</offlineMode>
-            <thumbnailForBase64>true</thumbnailForBase64>
-            <theme>standard</theme>
-            <encoding>UTF-8</encoding>
-            <protocol>https</protocol>
-            <testViewChartLocation>top</testViewChartLocation>
-            <charts>
-                <chart>
-                    <width>800</width>
-                    <height>400</height>
-                </chart>
-            </charts>
-        </configuration>
-    </reporter>
-    <reporter name="pdf">
-        <configuration>
-            <pageSize>Letter_Landscape</pageSize>
-        </configuration>
-    </reporter>
-</extent>
+<?xml version="1.0" encoding="UTF-8" ?>
+<extentreports>
+    <configuration>
+        <encoding>UTF-8</encoding>
+        <documentTitle>OpenMRS-AutomationReport - v1.0.0</documentTitle>
+        <reportName>OpenMRS-AutomationReport</reportName>
+            </configuration>
+</extentreports>

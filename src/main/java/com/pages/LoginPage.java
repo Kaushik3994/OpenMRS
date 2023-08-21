@@ -19,6 +19,8 @@ import java.util.Map;
 public class LoginPage {
 
 	private WebDriver driver;
+	//public ExtentReports reports;
+	//public ExtentTest test;
 
 	// 1. By Locators: OR
 	private By emailId = By.xpath("//input[@id='username']");
@@ -44,6 +46,7 @@ public class LoginPage {
 
 	public void enterPassword(String pwd) {
 		driver.findElement(password).sendKeys(pwd);
+
 	}
 
 	public void clickOnLogin() {
@@ -90,6 +93,7 @@ public class LoginPage {
 		for (Object str : actualAccountSectionsList) {
 			boolean isStringInList = sectionString.contains(str.toString());
 
+
 			// Output the result
 			if (isStringInList) {
 				System.out.println("The string '" + sectionString + "' is present in the list.");
@@ -98,10 +102,6 @@ public class LoginPage {
 		}
 		return result;
 		}
-
-
-
-
 
 	}
 
