@@ -123,7 +123,8 @@ public class LoginPageSteps {
 
 	private Map<String, String> getLoginData(String usernameKey, String passwordKey) throws IOException {
 		List<Map<String, String>> loginCredentials;
-		loginCredentials = ExcelDataReader.readExcelData("\"C:\\Users\\mbkaushikkumar\\IdeaProjects\\OpenMRS\\CredentialsDataProviders.xlsx\"", "Sheet1");
+		String filepath = System.getProperty("user.dir")+"//src//test//resources//CredentialsDataProviders.xlsx";
+		loginCredentials = ExcelDataReader.readExcelData(filepath, "Sheet1");
 
 		for (Map<String, String> loginData : loginCredentials) {
 			if (loginData.containsKey(usernameKey) && loginData.containsKey(passwordKey)) {
