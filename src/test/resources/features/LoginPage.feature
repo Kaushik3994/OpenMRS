@@ -23,6 +23,21 @@ Then the user should be able to view "Find Patient Record"
     |username  |password|
 
 
+  @T4
+  Scenario Outline: Login with correct credentials
+    Given user is on login page
+    When I enter "<Parameter>" and "<Value>"
+#And user enters password "Admin123"
+    And user selects location "Inpatient Ward" session
+    And user clicks on "Login" button
+    Then user gets the title of the page
+    And page title should be "Home"
+    Then the user should be able to view "Find Patient Record"
+    Examples:
+      |Parameter | Value|
+      |username  |password|
+
+
   @T3
   Scenario Outline: open Find Patient Record app
     Given user is on login page
