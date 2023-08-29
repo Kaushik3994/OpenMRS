@@ -79,16 +79,26 @@ public class LoginPageSteps {
 
 	}
 
+	public boolean isLoginSuccessful(String title) {
+		return title.contains("Home");
+	}
 
 	@When("user gets the title of the page")
 	public void user_gets_the_title_of_the_page() throws IOException {
 		// Write code here that turns the phrase above into concrete actions
 		title = loginPage.getLoginPageTitle();
-		System.out.println("Page title is: " + title);
 
-		//ExtentLogs.log("Page title is: " + title);
-		ExecutionHelper.getLogger().log(LogStatus.PASS, "Page title is: " + title +ExecutionHelper.getLogger()
-				.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+		if (isLoginSuccessful(title)) {
+			ExecutionHelper.getLogger().log(LogStatus.PASS, "Page title is: " + title + ExecutionHelper.getLogger().addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+		} else {
+			ExecutionHelper.getLogger().log(LogStatus.FAIL, "Login was unsuccssful: " + ExecutionHelper.getLogger().addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+			// You can also add a screenshot for the failed login here
+			// ExecutionHelper.getLogger().addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver()));
+		}
+
+//		//ExtentLogs.log("Page title is: " + title);
+//		ExecutionHelper.getLogger().log(LogStatus.PASS, "Page title is: " + title +ExecutionHelper.getLogger()
+//				.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
 
 
 
