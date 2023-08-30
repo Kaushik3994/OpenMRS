@@ -16,6 +16,7 @@ import org.testng.annotations.DataProvider;
 		features = {"src/test/resources/features"},
 		glue = {"stepDefinition"},
 		tags = "@LoginPage",
+	//	tags = "@T3",
 		dryRun = false, monochrome = true
 		//	tags = "@T1",
 

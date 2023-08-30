@@ -95,13 +95,5 @@ public class DriverFactory {
 		return tlDriver.get();
 	}
 
-	public static void setDriver(WebDriver driver) {
-		System.out.println("Setting Driver");
-		tlDriver.set(driver);
-	}
-
-	// Add the rest of the methods from the LocalDriverManager class here
-	// For example, if you have methods like 'closeDriver', 'quitDriver', etc.,
-	// you can add them here as well.
 }
 
