@@ -40,10 +40,8 @@ public class ApplicationHooks {
 		this.scenario = scenario;
 		String browserName = prop.getProperty("browser");
 		driverFactory = new DriverFactory();
-		driver = driverFactory.init_driver(browserName);
+		driver = DriverFactory.init_driver(browserName);
 
-		// Set the current scenario using ScenarioFactory
-		ScenarioFactory.setScenario(scenario);
 		
 	}
 
@@ -57,10 +55,7 @@ public class ApplicationHooks {
 
 		String FeatureName = value.split(".feature")[0];
 
-//		String FeatureName = value.split(".feature")[0];
-//		System.out.println("featureName : " + value.split(".feature")[0]);
-//		System.out.println("scenarioName : " + scenarioName);
-//		PageObject.initialize(FeatureName, scenarioName);
+
 		ExecutionHelper.startTest(value.split(".feature")[0] + " : " + scenarioName);
 	}
 
@@ -78,8 +73,7 @@ public class ApplicationHooks {
 			byte[] sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 			scenario.attach(sourcePath, "image/png", screenshotName);
 
-			// Clear the current scenario using ScenarioFactory
-			ScenarioFactory.setScenario(null);
+
 
 		}
 	}

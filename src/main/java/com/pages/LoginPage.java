@@ -19,9 +19,6 @@ import java.util.Map;
 public class LoginPage {
 
 	private WebDriver driver;
-	//public ExtentReports reports;
-	//public ExtentTest test;
-
 	// 1. By Locators: OR
 	private By emailId = By.xpath("//input[@id='username']");
 	private By password = By.xpath("//input[@id='password']");
@@ -40,13 +37,16 @@ public class LoginPage {
 		return driver.getTitle();
 	}
 
+	public String getPageTitle() {
+		return driver.getTitle();
+	}
+
 	public void enterUserName(String username) {
 		driver.findElement(emailId).sendKeys(username);
 	}
 
 	public void enterPassword(String pwd) {
 		driver.findElement(password).sendKeys(pwd);
-
 	}
 
 	public void clickOnLogin() {
@@ -69,12 +69,10 @@ public class LoginPage {
 
 		List<String> appsList = new ArrayList<>();
 		List<WebElement> appsHeaderList = driver.findElements(accountSections);
-
 		for (WebElement e : appsHeaderList) {
 			String text = e.getText();
 			appsList.add(text);
 		}
-
 		String appList = appsList.toString();
 		appList= appsList.toString().replace("[","");
 		appList= appList.replace("]","");
@@ -85,15 +83,12 @@ public class LoginPage {
 		List<String> substringsList = Arrays.asList(substrings);
 		System.out.println(substringsList);
 		return substringsList;
-
 	}
 
 	public boolean stringFound(String sectionString, List actualAccountSectionsList) {
 		boolean result=  false;
 		for (Object str : actualAccountSectionsList) {
 			boolean isStringInList = sectionString.contains(str.toString());
-
-
 			// Output the result
 			if (isStringInList) {
 				System.out.println("The string '" + sectionString + "' is present in the list.");
@@ -102,6 +97,5 @@ public class LoginPage {
 		}
 		return result;
 		}
-
 	}
 

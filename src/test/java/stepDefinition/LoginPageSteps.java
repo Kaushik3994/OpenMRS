@@ -5,11 +5,12 @@ import com.relevantcodes.extentreports.LogStatus;
 import helpers.ExecutionHelper;
 //import helpers.LocalDriverManager;
 import io.cucumber.java.en.And;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Assert;
 
 import com.pages.LoginPage;
 import com.qa.util.DriverFactory;
-import com.qa.util.ExcelDataReader;
+import com.qa.util.ExcelReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -75,24 +76,19 @@ public class LoginPageSteps {
 		DriverFactory.getDriver()
 				.get("http://localhost:8081/openmrs-standalone/login.htm");
 
-
-
 	}
 
+	public boolean isLoginSuccessful(String title) {
+		return title.contains("Home");
+	}
 
 	@When("user gets the title of the page")
 	public void user_gets_the_title_of_the_page() throws IOException {
 		// Write code here that turns the phrase above into concrete actions
-		title = loginPage.getLoginPageTitle();
-		System.out.println("Page title is: " + title);
-
-		//ExtentLogs.log("Page title is: " + title);
-		ExecutionHelper.getLogger().log(LogStatus.PASS, "Page title is: " + title +ExecutionHelper.getLogger()
-				.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
-
-
-
+		title = loginPage.getPageTitle();
 	}
+
+
 
 	@Then("page title should be {string}")
 	public void page_title_should_be(String expectedTitleName) throws InterruptedException, IOException {
@@ -103,7 +99,6 @@ public class LoginPageSteps {
 
 		ExecutionHelper.getLogger().log(LogStatus.PASS, "title contains" + expectedTitleName +ExecutionHelper.getLogger()
 				.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
-
 
 	}
 
@@ -139,35 +134,45 @@ public class LoginPageSteps {
 	}
 
 
-
-	public Map<String, String> getLoginData(String testCaseId,String usernameKey,String passwordKey) throws IOException {
-		String systemPath = System.getProperty("user.dir"); // Get the current working directory
-		String filePath = systemPath + "\\src\\test\\resources\\testdata.xlsx"; // Construct the complete file path
-
-		List<Map<String, String>> testData = ExcelDataReader.readExcelData(filePath, "Sheet1");
-		for (Map<String, String> data : testData) {
-			if (data.get("Test Case ID").equalsIgnoreCase(testCaseId)) {
-				Map<String, String> loginData = new HashMap<>();
-				loginData.put(usernameKey, data.get(usernameKey));
-				loginData.put(passwordKey, data.get(passwordKey));
-				return loginData;
-			}
-		}
-		throw new IllegalArgumentException("Test case ID not found in test data: " + testCaseId);
+	@When("I enter {string} as {string} and {string}")
+	public void iEnterAsAnd(String scenario, String username, String password) {
+		
 	}
 
+	@When("I enter username and password with {string}")
+	public void iEnterUsernameAndPasswordWith(String scenarioToFind) throws IOException, InvalidFormatException {
 
+		ExcelReader reader = new ExcelReader();
+		String systemDir = System.getProperty("user.dir");
+		String filePath = systemDir + "/src/test/resources/testdata.xlsx"; // Path with system directory
+		String username = "";
+		String password = "";
+		String scenarioName = "";
 
+		List<Map<String, String>> testData = reader.getData(filePath, "LoginData");
 
+		// Search for the index of the scenario in the testData
+		int index = -1;
+		for (int i = 0; i < testData.size(); i++) {
+			if (testData.get(i).get("Scenario").equals(scenarioToFind)) {
+				index = i;
+				break;
+			}
+		}
 
-	@When("^I enter \"(.*)\" and \"(.*)\"$")
-	public void iEnterUsernameAndPassword(String usernameKey, String passwordKey) throws IOException {
-		String testCaseId = ScenarioFactory.getCurrentScenarioTestCaseIDs();
-		Map<String, String> loginData = getLoginData(testCaseId, usernameKey, passwordKey);
-		String username = loginData.get(usernameKey);
-		String password = loginData.get(passwordKey);
+		if (index != -1) {
+			username = testData.get(index).get("username");
+			password = testData.get(index).get("password");
+			scenarioName = scenarioToFind;
 
-		// Rest of your step definition logic
+		} else {
+			String errorMessage = "Scenario '" + scenarioToFind + "' not found in Excel data.";
+			String screenshotPath = ExecutionHelper.takeScreenshot(DriverFactory.getDriver());
+
+			// Log the error message and attach the screenshot
+			ExecutionHelper.getLogger().log(LogStatus.FAIL, errorMessage + ExecutionHelper.getLogger().addScreenCapture(screenshotPath));
+		}
+
 		loginPage.enterUserName(username);
 		loginPage.enterPassword(password);
 
@@ -176,6 +181,14 @@ public class LoginPageSteps {
 
 	}
 
+	@Then("the login should be successful")
+	public void theLoginShouldBeSuccessful() throws IOException {
+		if (isLoginSuccessful(title)) {
+			ExecutionHelper.getLogger().log(LogStatus.PASS, "Page title is: " + title + ExecutionHelper.getLogger().addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+		} else {
+			ExecutionHelper.getLogger().log(LogStatus.FAIL, "Login was unsuccssful: " + ExecutionHelper.getLogger().addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+		}
+	}
 }
 
 
