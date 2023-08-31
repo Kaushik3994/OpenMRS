@@ -162,7 +162,7 @@ public class Utils {
 	}
 
 
-	/**
+	/*
 	 * Validating the text matching with the expected text
 	 *
 	 * @param actual
@@ -192,14 +192,14 @@ public class Utils {
 		return flag;
 	}
 
-	/**
-	 * Verifying the text contains with the expected text value
-	 *
-	 * @param actual
-	 *            Text
-	 * @param expected
-	 *            Text
-	 */
+		/*
+		 * Verifying the text contains with the expected text value
+		 *
+		 * @param actual
+		 *            Text
+		 * @param expected
+		 *            Text
+		 */
 	public boolean verifyTextContains(final String actualtext, final String expectedText) throws Throwable {
 		boolean flag = false;
 		try {
@@ -222,7 +222,7 @@ public class Utils {
 		return flag;
 	}
 
-	/**
+	/*
 	 * Verifying the texts contains are not matching
 	 *
 	 * @param actual
@@ -274,7 +274,7 @@ public class Utils {
 		return flag;
 	}
 
-	/**
+	/*
 	 * Validating the WebElement text matching with the expected text
 	 *
 	 * @param actual
@@ -306,7 +306,7 @@ public class Utils {
 		return flag;
 	}
 
-	/**
+	/*
 	 * Verifying the WebElement text contains with the expected text value
 	 *
 	 * @param actual
@@ -338,7 +338,7 @@ public class Utils {
 		return flag;
 	}
 
-	/**
+	/*
 	 * Select the dropdown value by index
 	 * @param Web Element
 	 * @param integer index
@@ -363,7 +363,7 @@ public class Utils {
 		}return flag;
 	}
 
-	/**
+	/*
 	 * Select the dropdown value by visible text
 	 * @param Web Element
 	 * @param String text
@@ -388,7 +388,7 @@ public class Utils {
 		}return flag;
 	}
 
-	/**
+	/*
 	 * Move cursor to given web element
 	 * @param Web Element
 	 * 
@@ -410,7 +410,7 @@ public class Utils {
 		}return flag;
 	}
 
-	/**
+	/*
 	 * Click on the Web element
 	 * @param By element Locator
 	 * @param String text
@@ -438,7 +438,7 @@ public class Utils {
 		}
 	}
 
-	/**
+	/*
 	 * Java Script Click on the Web element
 	 * @param By element Locator
 	 * @param String Text
@@ -464,7 +464,7 @@ public class Utils {
 		}
 	}
 
-	/**
+	/*
 	 *  validating the element is displayed or not
 	 *  
 	 *  @param Web Element
@@ -505,7 +505,7 @@ public class Utils {
 
 
 
-	/**
+	/*
 	 *  validating the element is enabled or not
 	 *  
 	 *  @param Web Element
@@ -528,7 +528,7 @@ public class Utils {
 		}return flag;
 	}
 
-	/**
+	/*
 	 *  validating the element is Selected or not
 	 *  
 	 *  @param Web Element
@@ -553,7 +553,7 @@ public class Utils {
 
 
 
-	/**
+	/*
 	 * Generate a random Alphabets string of given length
 	 * 
 	 * @param length
@@ -573,7 +573,7 @@ public class Utils {
 		return sb.toString();
 	}
 
-	/**
+	/*
 	 * Generate a random Alpha-Numeric string of given length
 	 * 
 	 * @param length
@@ -593,7 +593,7 @@ public class Utils {
 		return sb.toString();
 	}
 
-	/**
+	/*
 	 * Generate a random Special Character string of given length
 	 * 
 	 * @param length
@@ -620,7 +620,7 @@ public class Utils {
 		action.doubleClick(element).build().perform();
 	}
 
-	/**
+	/*
 	 * Verify the given web element is clickable or not
 	 * 
 	 * @param WebElement 
@@ -664,7 +664,7 @@ public class Utils {
 		return url;
 	}
 
-	/**
+	/*
 	 * Clears and SendKeys on the Web element
 	 * @param By element Locator
 	 * @param String text
@@ -697,7 +697,7 @@ public class Utils {
 		return !elem.isEmpty();
 	}
 
-	/**
+	/*
 	 * Generate a random number of given length
 	 * 
 	 * @param length
@@ -737,7 +737,7 @@ public class Utils {
 		return randomNumber;
 	}
 
-	/**
+	/*
 	 * Wait for the complete page Load
 	 */
 	public void waitForPageLoad() {
@@ -751,7 +751,7 @@ public class Utils {
 		});
 	}
 	
-	/**
+	/*
 	 * Wait for the page to be ready
 	 */
 	public void waitForPageToBeReady() {
@@ -768,7 +768,7 @@ public class Utils {
 		}
 	}
 
-	/**  
+	/*
 	 * Wait till the page  get loaded
 	 */
 	public boolean waitTime() {
