@@ -1,5 +1,6 @@
 package stepDefinition;
 
+import com.pages.RegisterPage;
 import com.qa.util.ScenarioFactory;
 import com.relevantcodes.extentreports.LogStatus;
 import helpers.ExecutionHelper;
@@ -14,6 +15,7 @@ import com.qa.util.ExcelReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -25,9 +27,17 @@ import java.util.Map;
 
 public class LoginPageSteps {
 
+
+
 	private static String title;
+	public static String firstName = "";
+	public static String lastName = "";
+	public static String email = "";
+	public static String passwordValue = "";
+	public static String testdata = "";
 	private List<Map<String, String>> testData;
 	private LoginPage loginPage = new LoginPage(DriverFactory.getDriver());
+	private RegisterPage registerPage = new RegisterPage(DriverFactory.getDriver());
 
 
 	@When("user enters username {string}")
@@ -41,32 +51,20 @@ public class LoginPageSteps {
 		Thread.sleep(2000);
 	}
 
-	@When("user selects location {string} session")
-	public void user_selects_location_session(String session) throws IOException {
-		switch (session) {
-
-			case "Inpatient Ward":
-				loginPage.clickOnSession();
-				ExecutionHelper.getLogger().log(LogStatus.PASS, "User enters into session " + session +ExecutionHelper.getLogger()
-						.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
-
-				break;
-
-			default:
-
-		}
-	}
 
 
 	@When("user clicks on {string} button")
-	public void user_clicks_on_login_button(String buttonName) {
+	public void user_clicks_on_login_button(String buttonName) throws InterruptedException {
 
 		switch (buttonName) {
 			case "Login":
 				loginPage.clickOnLogin();
 				break;
+			case "Register":
+				loginPage.clickOnNewRegistration();
+			case "register user":
+				registerPage.clickOnRegister();
 			default:
-//				DoNothing
 
 		}
 	}
@@ -74,12 +72,12 @@ public class LoginPageSteps {
 	@Given("user is on login page")
 	public void user_is_on_login_page() {
 		DriverFactory.getDriver()
-				.get("http://localhost:8081/openmrs-standalone/login.htm");
+				.get("http://13.58.54.12/login");
 
 	}
 
 	public boolean isLoginSuccessful(String title) {
-		return title.contains("Home");
+		return title.contains("Patients Report");
 	}
 
 	@When("user gets the title of the page")
@@ -102,44 +100,7 @@ public class LoginPageSteps {
 
 	}
 
-	@Then("the user should be able to view {string}")
-	public void the_user_should_be_able_to_view(String sectionString) throws IOException {
-
-	//	System.out.println("Expected accounts section list: " + sectionString);
-
-		List<String> actualAccountSectionsList = loginPage.getAppsSectionsList();
-	//	System.out.println("Actual accounts section list: " + actualAccountSectionsList);
-
-		Assert.assertTrue(loginPage.stringFound(sectionString, actualAccountSectionsList));
-
-		ExecutionHelper.getLogger().log(LogStatus.PASS, "The page contains the tile "+sectionString  +ExecutionHelper.getLogger()
-				.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
-
-	}
-
-
-	@And("user clicks the app {string}")
-	public void userClicksTheApp(String appName) throws InterruptedException, IOException {
-		switch (appName) {
-			case "Find Patient Record":
-				loginPage.clickOnApp(appName);
-				Thread.sleep(2000);
-
-				ExecutionHelper.getLogger().log(LogStatus.PASS, "User clicks on tile "+appName +ExecutionHelper.getLogger()
-						.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
-				break;
-			default:
-				break;
-		}
-	}
-
-
-	@When("I enter {string} as {string} and {string}")
-	public void iEnterAsAnd(String scenario, String username, String password) {
-		
-	}
-
-	@When("I enter username and password with {string}")
+		@When("I enter username and password with {string}")
 	public void iEnterUsernameAndPasswordWith(String scenarioToFind) throws IOException, InvalidFormatException {
 
 		ExcelReader reader = new ExcelReader();
@@ -189,6 +150,114 @@ public class LoginPageSteps {
 			ExecutionHelper.getLogger().log(LogStatus.FAIL, "Login was unsuccssful: " + ExecutionHelper.getLogger().addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
 		}
 	}
+
+	@When("user is able to see {string}")
+	public void userIsAbleToSee(String fieldName) throws IOException {
+		switch (fieldName) {
+			case "First Name":
+			case "Last Name":
+			case "Email":
+			case "Password":
+				String fieldTitle = registerPage.verifyTitle(fieldName);
+				if(fieldTitle.contains(fieldName))
+				{
+					ExecutionHelper.getLogger().log(LogStatus.PASS, "Field Name is validated" + fieldName +ExecutionHelper.getLogger()
+							.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+				}
+				else {
+					ExecutionHelper.getLogger().log(LogStatus.FAIL, "Field Validation failed" +ExecutionHelper.getLogger()
+							.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+
+				}
+
+				break;
+			case "Register":
+				loginPage.clickOnNewRegistration();
+			default:
+
+		}
+
+	}
+
+	@And("I get the Registration details for {string}")
+	public void iGetTheRegistrationDetailsFor(String testdataToFind) throws IOException, InvalidFormatException {
+
+		ExcelReader reader = new ExcelReader();
+		String systemDir = System.getProperty("user.dir");
+		String filePath = systemDir + "/src/test/resources/registration.xlsx"; // Path with system directory
+
+
+		List<Map<String, String>> testData = reader.getData(filePath, "registrationData");
+
+		// Search for the index of the scenario in the testData
+		int index = -1;
+		for (int i = 0; i < testData.size(); i++) {
+			if (testData.get(i).get("test data").equals(testdataToFind)) {
+				index = i;
+				break;
+			}
+		}
+
+		if (index != -1) {
+			firstName = testData.get(index).get("First Name");
+			lastName = testData.get(index).get("Last Name");
+			email = testData.get(index).get("Email");
+			passwordValue = testData.get(index).get("Password");
+			testdata = testdataToFind;
+
+		} else {
+			String errorMessage = "Test data '" + testdataToFind + "' not found in Excel data.";
+			String screenshotPath = ExecutionHelper.takeScreenshot(DriverFactory.getDriver());
+
+			// Log the error message and attach the screenshot
+			ExecutionHelper.getLogger().log(LogStatus.FAIL, errorMessage + ExecutionHelper.getLogger().addScreenCapture(screenshotPath));
+		}
+
+		ExecutionHelper.getLogger().log(LogStatus.PASS, "User retrieves Registration details"  +ExecutionHelper.getLogger()
+				.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+
+	}
+
+
+	@When("I enter {string}")
+	public void iEnterWith(String fieldName) {
+		switch(fieldName) {
+			case "FirstName":
+				registerPage.enterfirstName(firstName);
+				break;
+			case "LastName":
+				registerPage.enterLastName(lastName);
+				break;
+			case "Email":
+				registerPage.enterEmail(email);
+				break;
+			case "Password":
+				registerPage.enterPassword(passwordValue);
+				break;
+			default:
+		}
+	}
+
+	@And("validate user is registered")
+	public void validateUserIsRegistered() throws IOException {
+
+		boolean isDisplayed = registerPage.validateSuccessMessage();
+		if( isDisplayed = true)
+		{
+				ExecutionHelper.getLogger().log(LogStatus.PASS, "Registration Success" + ExecutionHelper.getLogger()
+					.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+
+		}
+		else
+		{
+			ExecutionHelper.getLogger().log(LogStatus.FAIL, "Registration unsuccessful" + ExecutionHelper.getLogger()
+					.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+
+		}
+
+
+	}
+
 }
 
 
