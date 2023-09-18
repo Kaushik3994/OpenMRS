@@ -22,20 +22,17 @@ public class LoginPage {
 	// 1. By Locators: OR
 	private By emailId = By.xpath("//input[@id='username']");
 	private By password = By.xpath("//input[@id='password']");
-	private By signInButton = By.id("loginButton");
+	private By signInButton = By.xpath("//button[@type='submit']");
 	private By sessionButtonInpatientWard =By.xpath("//li[@id='Inpatient Ward']");
 	private By sessionButtonFindPatientRecords =By.xpath("/html/body/div/div[3]/div[3]/div/a[1]");
 
+	private By newRegistration = By.xpath("/html/body/div/div/div/div/div[2]/form/div[3]/span/a");
 	// 2. Constructor of the page class:
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
 	}
 
 	// 3. page actions: features(behavior) of the page the form of methods:
-
-	public String getLoginPageTitle() {
-		return driver.getTitle();
-	}
 
 	public String getPageTitle() {
 		return driver.getTitle();
@@ -49,41 +46,14 @@ public class LoginPage {
 		driver.findElement(password).sendKeys(pwd);
 	}
 
+	public void clickOnNewRegistration() {
+		driver.findElement(newRegistration).click();
+	}
+
 	public void clickOnLogin() {
 			driver.findElement(signInButton).click();
 	}
-	public void clickOnSession() {
-		driver.findElement(sessionButtonInpatientWard).click();
-	}
-	public void clickOnApp(String appName) {
-		switch(appName) {
-			case "Find Patient Record":
-			driver.findElement(sessionButtonFindPatientRecords).click();
-			break;
-		}
-	}
 
-	private By accountSections = By.id("apps");
-
-	public List<String> getAppsSectionsList() {
-
-		List<String> appsList = new ArrayList<>();
-		List<WebElement> appsHeaderList = driver.findElements(accountSections);
-		for (WebElement e : appsHeaderList) {
-			String text = e.getText();
-			appsList.add(text);
-		}
-		String appList = appsList.toString();
-		appList= appsList.toString().replace("[","");
-		appList= appList.replace("]","");
-
-		String[] substrings = appList.split("\n");
-
-		// Convert the array to a list
-		List<String> substringsList = Arrays.asList(substrings);
-		System.out.println(substringsList);
-		return substringsList;
-	}
 
 	public boolean stringFound(String sectionString, List actualAccountSectionsList) {
 		boolean result=  false;

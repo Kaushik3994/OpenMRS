@@ -5,43 +5,44 @@ Feature: Login page feature
 Scenario: Login page validation
 Given user is on login page
 When user gets the title of the page
-Then page title should be "Login"
+Then page title should be "Patient Medical Record System"
+
+  @T3
+  Scenario Outline: Register an user
+    Given user is on login page
+    And user clicks on "Register" button
+    When user is able to see "First Name"
+    And I get the Registration details for "<Parameter>"
+    When I enter "FirstName"
+    When user is able to see "Last Name"
+    When I enter "LastName"
+    When user is able to see "Email"
+    When I enter "Email"
+    When user is able to see "Password"
+    When I enter "Password"
+    And user clicks on "register user" button
+    And validate user is registered
+    Examples:
+      |Parameter |
+      |data9|
 
 
 @T2
 Scenario Outline: Login with correct credentials
 Given user is on login page
 When I enter username and password with "<Parameter>"
-And user selects location "Inpatient Ward" session
 And user clicks on "Login" button
 Then user gets the title of the page
 Then the login should be successful
-And page title should be "Home"
-Then the user should be able to view "Find Patient Record"
+And page title should be "Patients Report"
   Examples:
     |Parameter |
     |valid credentials|
     |invalid credentials|
 
-  @T3
-  Scenario Outline: open Find Patient Record app
-    Given user is on login page
-    When I enter username and password with "<Parameter>"
-    And user selects location "Inpatient Ward" session
-    And user clicks on "Login" button
-    Then user gets the title of the page
-    And page title should be "Home"
-    And user clicks the app "Find Patient Record"
-    Then user gets the title of the page
-    Then page title should be "OpenMRS Electronic Medical Record"
-    Examples:
-      |Parameter |
-      |valid credentials|
 
-#  @T301
-#  Scenario: Register a patient
-#    Given user is on login page
-#    When user enters username "admin"
+
+ #   When user enters username "admin"
 #    And user enters password "Admin123"
 #    And user selects location "Impatient" session
 #    And user clicks on "Login" button
