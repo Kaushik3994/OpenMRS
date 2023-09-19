@@ -24,7 +24,7 @@ Then page title should be "Patient Medical Record System"
     And validate user is registered
     Examples:
       |Parameter |
-      |data9|
+      |data8|
 
 
 @T2
