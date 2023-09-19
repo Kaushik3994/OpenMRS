@@ -11,7 +11,7 @@ public class RegisterPage {
 
 	private static WebDriver driver;
 	// 1. By Locators: OR
-	private By registerLink = By.xpath("/html/body/div/div/div/div/div[2]/form/div[3]/span/a");
+//	private By registerLink = By.xpath("/html/body/div/div/div/div/div[2]/form/div[3]/span/a");
 	private static By firstNameTitle = By.xpath("/html/body/div/div/div/div[2]/form/div[1]/label");
 	private static By firstName = By.id("firstName");
 
@@ -24,8 +24,8 @@ public class RegisterPage {
 	private static By passwordTitle = By.xpath("/html/body/div/div/div/div[2]/form/div[4]/label");
 	private By password = By.id("password");
 
-	private By registerButton = By.xpath("//button[@type='submit']");
-	private By registrationSuccessMessage = By.xpath("//div[@class='alert alert-info']");
+//	private By registerButton = By.xpath("//button[@type='submit']");
+//	private By registrationSuccessMessage = By.xpath("//div[@class='alert alert-info']");
 
 
 	public RegisterPage(WebDriver driver) {

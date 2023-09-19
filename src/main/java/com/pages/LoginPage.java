@@ -23,8 +23,6 @@ public class LoginPage {
 	private By emailId = By.xpath("//input[@id='username']");
 	private By password = By.xpath("//input[@id='password']");
 	private By signInButton = By.xpath("//button[@type='submit']");
-	private By sessionButtonInpatientWard =By.xpath("//li[@id='Inpatient Ward']");
-	private By sessionButtonFindPatientRecords =By.xpath("/html/body/div/div[3]/div[3]/div/a[1]");
 
 	private By newRegistration = By.xpath("/html/body/div/div/div/div/div[2]/form/div[3]/span/a");
 	// 2. Constructor of the page class:
@@ -53,19 +51,5 @@ public class LoginPage {
 	public void clickOnLogin() {
 			driver.findElement(signInButton).click();
 	}
-
-
-	public boolean stringFound(String sectionString, List actualAccountSectionsList) {
-		boolean result=  false;
-		for (Object str : actualAccountSectionsList) {
-			boolean isStringInList = sectionString.contains(str.toString());
-			// Output the result
-			if (isStringInList) {
-				System.out.println("The string '" + sectionString + "' is present in the list.");
-				result=true;
-			}
-		}
-		return result;
-		}
 	}
 

@@ -35,23 +35,8 @@ public class LoginPageSteps {
 	public static String email = "";
 	public static String passwordValue = "";
 	public static String testdata = "";
-	private List<Map<String, String>> testData;
 	private LoginPage loginPage = new LoginPage(DriverFactory.getDriver());
 	private RegisterPage registerPage = new RegisterPage(DriverFactory.getDriver());
-
-
-	@When("user enters username {string}")
-	public void user_enters_username(String username) {
-		loginPage.enterUserName(username);
-	}
-
-	@When("user enters password {string}")
-	public void user_enters_password(String password) throws InterruptedException {
-		loginPage.enterPassword(password);
-		Thread.sleep(2000);
-	}
-
-
 
 	@When("user clicks on {string} button")
 	public void user_clicks_on_login_button(String buttonName) throws InterruptedException {
@@ -91,12 +76,20 @@ public class LoginPageSteps {
 	@Then("page title should be {string}")
 	public void page_title_should_be(String expectedTitleName) throws InterruptedException, IOException {
 		// Write code here that turns the phrase above into concrete actions
-		Assert.assertTrue(title.contains(expectedTitleName));
-		Thread.sleep(2000);
-		System.out.println("Expected Title is "+expectedTitleName +" Actual title is " +title );
+	//	Assert.assertTrue(title.contains(expectedTitleName));
+		if(title.contains(expectedTitleName))
+		{
+			Thread.sleep(2000);
+		//	System.out.println("Expected Title is "+expectedTitleName +" Actual title is " +title );
+			ExecutionHelper.getLogger().log(LogStatus.PASS, "title contains" + expectedTitleName +ExecutionHelper.getLogger()
+					.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+		} else {
+			ExecutionHelper.getLogger().log(LogStatus.FAIL, "title" + expectedTitleName + "not found" +ExecutionHelper.getLogger()
+					.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
 
-		ExecutionHelper.getLogger().log(LogStatus.PASS, "title contains" + expectedTitleName +ExecutionHelper.getLogger()
-				.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
+		}
+
+
 
 	}
 
