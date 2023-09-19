@@ -5,6 +5,7 @@ import com.qa.util.ScenarioFactory;
 import com.relevantcodes.extentreports.LogStatus;
 import helpers.ExecutionHelper;
 //import helpers.LocalDriverManager;
+import helpers.Utils;
 import io.cucumber.java.en.And;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Assert;
@@ -17,18 +18,20 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+import static helpers.Utils.generateRandomNumber;
 
 
 public class LoginPageSteps {
 
-
-
+	// Define a class-level variable to store the counter
+	String randomNumber = Utils.generateRandomNumber(4);
 	private static String title;
 	public static String firstName = "";
 	public static String lastName = "";
@@ -175,6 +178,7 @@ public class LoginPageSteps {
 	@And("I get the Registration details for {string}")
 	public void iGetTheRegistrationDetailsFor(String testdataToFind) throws IOException, InvalidFormatException {
 
+
 		ExcelReader reader = new ExcelReader();
 		String systemDir = System.getProperty("user.dir");
 		String filePath = systemDir + "/src/test/resources/registration.xlsx"; // Path with system directory
@@ -191,6 +195,8 @@ public class LoginPageSteps {
 			}
 		}
 
+
+
 		if (index != -1) {
 			firstName = testData.get(index).get("First Name");
 			lastName = testData.get(index).get("Last Name");
@@ -206,9 +212,18 @@ public class LoginPageSteps {
 			ExecutionHelper.getLogger().log(LogStatus.FAIL, errorMessage + ExecutionHelper.getLogger().addScreenCapture(screenshotPath));
 		}
 
+		String newEmail = generateNewEmail(email, randomNumber);
+		email = newEmail;
+
 		ExecutionHelper.getLogger().log(LogStatus.PASS, "User retrieves Registration details"  +ExecutionHelper.getLogger()
 				.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
 
+
+	}
+
+	// Function to generate a new email address based on the base email and the random number
+	private String generateNewEmail(String baseEmail, String randomNumber) {
+		return baseEmail.replace("@", randomNumber + "@");
 	}
 
 
