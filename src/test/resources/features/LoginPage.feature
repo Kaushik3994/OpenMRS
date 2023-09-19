@@ -1,13 +1,13 @@
 @LoginPage
 Feature: Login page feature
 
-@T1
+@DEPCPS-T2
 Scenario: Login page validation
 Given user is on login page
 When user gets the title of the page
 Then page title should be "Patient Medical Record System"
 
-  @T3
+  @DEPCPS-T4
   Scenario Outline: Register an user
     Given user is on login page
     And user clicks on "Register" button
@@ -24,10 +24,10 @@ Then page title should be "Patient Medical Record System"
     And validate user is registered
     Examples:
       |Parameter |
-      |data8|
+      |data01|
 
 
-@T2
+  @DEPCPS-T3
 Scenario Outline: Login with correct credentials
 Given user is on login page
 When I enter username and password with "<Parameter>"
