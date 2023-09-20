@@ -15,7 +15,7 @@ import org.testng.annotations.DataProvider;
 @CucumberOptions(
 		features = {"src/test/resources/features"},
 		glue = {"stepDefinition"},
-		tags = "@DEPCPS-T4",
+		tags = "@LoginPage",
 	//	tags = "@T1 or @T2",
 		dryRun = false, monochrome = true
 		//	tags = "@T1",
