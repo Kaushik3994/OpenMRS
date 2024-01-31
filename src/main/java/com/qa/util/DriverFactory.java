@@ -1,82 +1,99 @@
-package stepDefinition;
+//package com.qa.util;
+//
+//import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.firefox.FirefoxDriver;
+//import org.openqa.selenium.safari.SafariDriver;
+//
+//import io.github.bonigarcia.wdm.WebDriverManager;
+//
+//public class DriverFactory {
+//
+//	public WebDriver driver;
+//
+//	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
+//
+//	/**
+//	 * This method is used to initialize the thradlocal driver on the basis of given
+//	 * browser
+//	 *
+//	 * @param browser
+//	 * @return this will return tldriver.
+//	 */
+//	public WebDriver init_driver(String browser) {
+//
+//
+//		System.out.println("browser value is: " + browser);
+//
+//		if (browser.equals("chrome")) {
+//			WebDriverManager.chromedriver().setup();
+//			tlDriver.set(new ChromeDriver());
+//		} else if (browser.equals("firefox")) {
+//			WebDriverManager.firefoxdriver().setup();
+//			tlDriver.set(new FirefoxDriver());
+//		} else if (browser.equals("safari")) {
+//			tlDriver.set(new SafariDriver());
+//		} else {
+//
+//			System.out.println("Please pass the correct browser value: " + browser);
+//		}
+//
+//
+//		getDriver().manage().deleteAllCookies();
+//		getDriver().manage().window().maximize();
+//
+//		// Set the driver instance in LocalDriverManager
+//
+//		return getDriver();
+//
+//	}
+//
+//	/**
+//	 * this is used to get the driver with ThreadLocal
+//	 *
+//	 * @return
+//	 */
+//	public static synchronized WebDriver getDriver() {
+//		return tlDriver.get();
+//	}
+//}
 
-import java.util.Properties;
+package com.qa.util;
 
-import helpers.ExecutionHelper;
-import io.cucumber.java.Scenario;
-
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
-import com.qa.util.DriverFactory;
-import com.qa.util.ConfigReader;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
-import com.qa.util.ScenarioFactory; // Import the ScenarioFactory class
+public class DriverFactory {
 
+	private static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
 
-public class ApplicationHooks {
+	public static WebDriver init_driver(String browser) {
+		System.out.println("browser value is: " + browser);
 
-	private DriverFactory driverFactory;
-	private WebDriver driver;
-	private ConfigReader configReader;
-	Properties prop;
-	private Scenario scenario; // Store the injected Scenario object
-
-	ExecutionHelper helper = new ExecutionHelper();
-
-	@Before(order = 0)
-	public void getProperty() {
-		configReader = new ConfigReader();
-		prop = configReader.init_prop();
-	}
-
-
-	@Before(order = 1)
-	public void launchBrowser(Scenario scenario) {
-		this.scenario = scenario;
-		//String browserName = prop.getProperty("browser");
-		String browserName ="chrome";
-		driverFactory = new DriverFactory();
-		driver = DriverFactory.init_driver(browserName);
-
-		
-	}
-
-	@Before(order = 2) // Add this new Before hook with order 2
-	public void beforeScenario(Scenario scenario) throws Throwable {
-		String scenarioName = scenario.getName();
-		String featureName = scenario.getId().split(";")[0];
-
-		String[] featureParts = featureName.split("features/");
-		String value = (featureParts.length > 1) ? featureParts[1] : ""; // Use an empty string if the split result is not as expected
-
-		String FeatureName = value.split(".feature")[0];
-
-
-		ExecutionHelper.startTest(value.split(".feature")[0] + " : " + scenarioName);
-	}
-
-
-	@After(order = 0)
-	public void quitBrowser() {
-		driver.quit();
-	}
-
-	@After(order = 1)
-	public void tearDown(Scenario scenario) {
-		if (scenario.isFailed()) {
-			// take screenshot:
-			String screenshotName = scenario.getName().replaceAll(" ", "_");
-			byte[] sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-			scenario.attach(sourcePath, "image/png", screenshotName);
-
-
-
+		if (browser.equals("chrome")) {
+			WebDriverManager.chromedriver().setup();
+			tlDriver.set(new ChromeDriver());
+		} else if (browser.equals("firefox")) {
+			WebDriverManager.firefoxdriver().setup();
+			tlDriver.set(new FirefoxDriver());
+		} else if (browser.equals("safari")) {
+			tlDriver.set(new SafariDriver());
+		} else {
+			System.out.println("Please pass the correct browser value: " + browser);
 		}
+
+		getDriver().manage().deleteAllCookies();
+		getDriver().manage().window().maximize();
+		return getDriver();
+	}
+
+	public static synchronized WebDriver getDriver() {
+		return tlDriver.get();
 	}
 
 }
+
