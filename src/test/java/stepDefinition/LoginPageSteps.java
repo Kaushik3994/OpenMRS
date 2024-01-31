@@ -17,6 +17,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -59,7 +62,6 @@ public class LoginPageSteps {
 
 	@Given("user is on login page")
 	public void user_is_on_login_page() {
-		// DriverFactory.getDriver().get("http://3.130.246.234/login");
 		WebDriver chromeDriver;
 		System.setProperty("webdriver.chrome.driver","usr/bin/google-chrome");
 		ChromeOptions chromeOptions=new ChromeOptions();
@@ -84,11 +86,11 @@ public class LoginPageSteps {
 	@Then("page title should be {string}")
 	public void page_title_should_be(String expectedTitleName) throws InterruptedException, IOException {
 		// Write code here that turns the phrase above into concrete actions
-	//	Assert.assertTrue(title.contains(expectedTitleName));
+		//	Assert.assertTrue(title.contains(expectedTitleName));
 		if(title.contains(expectedTitleName))
 		{
 			Thread.sleep(2000);
-		//	System.out.println("Expected Title is "+expectedTitleName +" Actual title is " +title );
+			//	System.out.println("Expected Title is "+expectedTitleName +" Actual title is " +title );
 			ExecutionHelper.getLogger().log(LogStatus.PASS, "title contains" + expectedTitleName +ExecutionHelper.getLogger()
 					.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
 		} else {
@@ -101,7 +103,7 @@ public class LoginPageSteps {
 
 	}
 
-		@When("I enter username and password with {string}")
+	@When("I enter username and password with {string}")
 	public void iEnterUsernameAndPasswordWith(String scenarioToFind) throws IOException, InvalidFormatException {
 
 		ExcelReader reader = new ExcelReader();
@@ -257,7 +259,7 @@ public class LoginPageSteps {
 		boolean isDisplayed = registerPage.validateSuccessMessage();
 		if( isDisplayed = true)
 		{
-				ExecutionHelper.getLogger().log(LogStatus.PASS, "Registration Success" + ExecutionHelper.getLogger()
+			ExecutionHelper.getLogger().log(LogStatus.PASS, "Registration Success" + ExecutionHelper.getLogger()
 					.addScreenCapture(ExecutionHelper.takeScreenshot(DriverFactory.getDriver())));
 
 		}
@@ -272,11 +274,3 @@ public class LoginPageSteps {
 	}
 
 }
-
-
-
-
-
-
-
-
