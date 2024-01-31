@@ -41,9 +41,9 @@ public class ApplicationHooks {
 		//String browserName = prop.getProperty("browser");
 		String browserName ="chrome";
 		driverFactory = new DriverFactory();
-		driver = DriverFactory.init_driver();
+		driver = DriverFactory.getDriver();
 
-		
+
 	}
 
 	@Before(order = 2) // Add this new Before hook with order 2
