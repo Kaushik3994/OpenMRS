@@ -78,8 +78,8 @@ public class DriverFactory {
 		ChromeOptions chromeOptions=new ChromeOptions();
 		chromeOptions.addArguments("headless");
 		chromeDriver=new ChromeDriver(chromeOptions);
-		chromeDriver.manage().deleteAllCookies();
-		chromeDriver.manage().window().maximize();
+		//chromeDriver.manage().deleteAllCookies();
+		//chromeDriver.manage().window().maximize();
 		return chromeDriver;
 	}
 
