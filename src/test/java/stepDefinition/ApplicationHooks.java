@@ -38,9 +38,10 @@ public class ApplicationHooks {
 	@Before(order = 1)
 	public void launchBrowser(Scenario scenario) {
 		this.scenario = scenario;
-		String browserName = prop.getProperty("browser");
+		//String browserName = prop.getProperty("browser");
+		String browserName ="chrome";
 		driverFactory = new DriverFactory();
-		driver = DriverFactory.init_driver(browserName);
+		driver = DriverFactory.getDriver();
 
 		
 	}

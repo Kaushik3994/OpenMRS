@@ -62,6 +62,7 @@ package com.qa.util;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
@@ -71,29 +72,19 @@ public class DriverFactory {
 
 	private static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
 
-	public static WebDriver init_driver(String browser) {
-		System.out.println("browser value is: " + browser);
-
-		if (browser.equals("chrome")) {
-			WebDriverManager.chromedriver().setup();
-			tlDriver.set(new ChromeDriver());
-		} else if (browser.equals("firefox")) {
-			WebDriverManager.firefoxdriver().setup();
-			tlDriver.set(new FirefoxDriver());
-		} else if (browser.equals("safari")) {
-			tlDriver.set(new SafariDriver());
-		} else {
-			System.out.println("Please pass the correct browser value: " + browser);
-		}
-
-		getDriver().manage().deleteAllCookies();
-		getDriver().manage().window().maximize();
-		return getDriver();
+	public static synchronized  WebDriver getDriver() {
+		WebDriver chromeDriver;
+		System.setProperty("webdriver.chrome.driver","usr/bin/google-chrome");
+		ChromeOptions chromeOptions=new ChromeOptions();
+		chromeOptions.addArguments("headless");
+		chromeDriver=new ChromeDriver(chromeOptions);
+		return chromeDriver;
 	}
 
+/*
 	public static synchronized WebDriver getDriver() {
 		return tlDriver.get();
-	}
+	}*/
 
 }
 
