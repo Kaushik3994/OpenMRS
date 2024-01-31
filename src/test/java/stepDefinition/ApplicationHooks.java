@@ -41,7 +41,7 @@ public class ApplicationHooks {
 		//String browserName = prop.getProperty("browser");
 		String browserName ="chrome";
 		driverFactory = new DriverFactory();
-		driver = DriverFactory.getDriver();
+		driver = DriverFactory.init_driver();
 
 		
 	}
