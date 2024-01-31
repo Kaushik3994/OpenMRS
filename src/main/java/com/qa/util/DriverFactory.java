@@ -74,7 +74,7 @@ public class DriverFactory {
 
 	public static synchronized  WebDriver getDriver() {
 		WebDriver chromeDriver;
-		System.setProperty("webdriver.chrome.driver","usr/bin/google-chrome");
+		System.setProperty("webdriver.chrome.driver","/usr/bin/google-chrome");
 		ChromeOptions chromeOptions=new ChromeOptions();
 		chromeOptions.addArguments("headless");
 		chromeDriver=new ChromeDriver(chromeOptions);
