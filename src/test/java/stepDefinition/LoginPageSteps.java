@@ -60,7 +60,7 @@ public class LoginPageSteps {
 	@Given("user is on login page")
 	public void user_is_on_login_page() {
 		DriverFactory.getDriver()
-				.get("http://13.58.54.12/login");
+				.get("http://3.130.246.234/login");
 
 	}
 
