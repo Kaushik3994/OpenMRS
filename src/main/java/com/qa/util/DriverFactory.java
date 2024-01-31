@@ -72,19 +72,21 @@ public class DriverFactory {
 
 	private static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
 
-	public static synchronized  WebDriver getDriver() {
+	public static  WebDriver init_driver() {
 		WebDriver chromeDriver;
-		System.setProperty("webdriver.chrome.driver","/usr/bin/google-chrome");
+		System.setProperty("webdriver.chrome.driver","usr/bin/google-chrome");
 		ChromeOptions chromeOptions=new ChromeOptions();
 		chromeOptions.addArguments("headless");
 		chromeDriver=new ChromeDriver(chromeOptions);
-		return chromeDriver;
+		tlDriver.set(chromeDriver);
+		getDriver().manage().deleteAllCookies();
+		getDriver().manage().window().maximize();
+		return getDriver();
 	}
 
-/*
 	public static synchronized WebDriver getDriver() {
 		return tlDriver.get();
-	}*/
+	}
 
 }
 
