@@ -74,11 +74,12 @@ public class DriverFactory {
 
 	public static  WebDriver getDriver() {
 		WebDriver chromeDriver;
-		chromeDriver=WebDriverManager.chromedriver().capabilities(options).create();
+		
 		//System.setProperty("webdriver.chrome.driver","/usr/bin/google-chrome");
 		ChromeOptions chromeOptions=new ChromeOptions();
 		chromeOptions.addArguments("headless");
-		chromeDriver=new ChromeDriver(chromeOptions);
+		chromeDriver=WebDriverManager.chromedriver().capabilities(chromeOptions).create();
+		//chromeDriver=new ChromeDriver(chromeOptions);
 		//chromeDriver.manage().deleteAllCookies();
 		//chromeDriver.manage().window().maximize();
 		return chromeDriver;
