@@ -60,10 +60,13 @@
 
 package com.qa.util;
 
+import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -71,18 +74,29 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class DriverFactory {
 
 	private static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
+	private static WebDriver driver;
 
-	public static  WebDriver getDriver() {
-		WebDriver chromeDriver;
-		
+	public static void  setDriver() {
 		//System.setProperty("webdriver.chrome.driver","/usr/bin/google-chrome");
 		ChromeOptions chromeOptions=new ChromeOptions();
+//		DesiredCapabilities cap=DesiredCapabilities.chrome();
+
+// Set ACCEPT_SSL_CERTS  variable to true
+//		cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 		chromeOptions.addArguments("headless");
-		chromeDriver=WebDriverManager.chromedriver().capabilities(chromeOptions).create();
+//		cap.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+		driver=WebDriverManager.chromedriver().capabilities(chromeOptions).create();
 		//chromeDriver=new ChromeDriver(chromeOptions);
 		//chromeDriver.manage().deleteAllCookies();
 		//chromeDriver.manage().window().maximize();
-		return chromeDriver;
+	}
+
+	public static WebDriver getDriver(){
+		return driver;
+
+	}
+	public DriverFactory(WebDriver driver) {
+		this.driver=driver;
 	}
 
 	/*public static synchronized WebDriver getDriver() {
@@ -90,4 +104,3 @@ public class DriverFactory {
 	}*/
 
 }
-
