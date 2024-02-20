@@ -61,14 +61,13 @@ public class LoginPageSteps {
 	}
 
 	@Given("user is on login page")
-	public void user_is_on_login_page() {
- DriverFactory.getDriver()
-		.get("http://3.130.246.234/login");
-
-	}
-
-	public boolean isLoginSuccessful(String title) {
-		return title.contains("Patients Report");
+	public void user_is_on_login_page() throws InterruptedException {
+		DriverFactory.getDriver()
+		.navigate().to("http://3.130.246.234");
+		String url = DriverFactory.getDriver().getCurrentUrl();
+		String newUrl = url.replace("https", "http");
+		DriverFactory.getDriver().get(newUrl);
+		Thread.sleep(100);
 	}
 
 	@When("user gets the title of the page")
