@@ -61,14 +61,13 @@ public class LoginPageSteps {
 	}
 
 	@Given("user is on login page")
-	public void user_is_on_login_page() {
-		WebDriver chromeDriver;
-		System.setProperty("webdriver.chrome.driver","usr/bin/google-chrome");
-		ChromeOptions chromeOptions=new ChromeOptions();
-		chromeOptions.addArguments("headless");
-		chromeDriver=new ChromeDriver(chromeOptions);
-		chromeDriver.get("http://3.130.246.234/login");
-
+	public void user_is_on_login_page() throws InterruptedException {
+		DriverFactory.getDriver()
+		.navigate().to("http://3.130.246.234");
+		String url = DriverFactory.getDriver().getCurrentUrl();
+		String newUrl = url.replace("https", "http");
+		DriverFactory.getDriver().get(newUrl);
+		Thread.sleep(100);
 	}
 
 	public boolean isLoginSuccessful(String title) {
